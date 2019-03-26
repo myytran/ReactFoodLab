@@ -11,7 +11,7 @@ import EditRecipe from './edit-recipe';
 import ExploreVids from './explore-vids';
 import LoginForm from './login-form';
 import Contact from './contact';
-import './App.css';
+import '../styles/App.css';
 
 export class App extends React.Component {
     componentDidUpdate(prevProps) {
