@@ -84,10 +84,6 @@ render() {
                   <input type="submit" value="Add Recipe" className="submit-recipe-btn"  />
                 </div>
               </form>
-<br></br><br></br>
-              <div className="YT-vids">
-                <ExploreVids />
-                </div>
         </div>
 
 

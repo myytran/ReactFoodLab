@@ -7,7 +7,7 @@ import {refreshAuthToken} from '../actions/auth';
 import LoginForm from './login-form';
 import LandingPage from './landing-page';
 import Dashboard from './dashboard';
-import './App.css';
+import '../styles/App.css';
 
 export class App extends React.Component {
   componentDidUpdate(prevProps) {

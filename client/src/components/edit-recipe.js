@@ -6,70 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 
 export default class EditRecipe extends Component {
-    constructor(props) {
-      super(props);
-        this.onChangeRecipeName = this.onChangeRecipeName.bind(this);
-        this.onChangeCategory = this.onChangeCategory.bind(this);
-        this.onChangeNotes = this.onChangeNotes.bind(this);
-        this.onDateChanged = this.onDateChanged.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-
-        this.state = {
-          recipe_name: ' ' ,
-          category: ' ',
-          notes: ' ',
-          startDate: new Date()
-
-        };
     
-    }
-      componentDidMount() {
-        axios.get('/recipe/edit/' +this.props.match.params.id)
-          .then(response => {
-        this.setState({
-          recipe_name: response.data.recipe_name,
-          category: response.data.category,
-          notes: response.data.notes,
-          startDate: response.data.startDate
-        })
-      })
-    }
-
-      onChangeRecipeName(e) {
-        this.setState({
-          recipe_name: e.target.value
-        });
-      }
-      onChangeCategory(e) {
-        this.setState({
-          category: e.target.value
-        })
-      }
-      onChangeNotes(e) {
-        this.setState({
-          notes: e.target.value
-        })
-      }
-      onDateChanged(date) {
-        this.setState({
-          startDate: date
-        });
-      }
-      onSubmit(e) {
-        e.preventDefault();
-          const obj = {
-            recipe_name: this.state.recipe_name,
-            category: this.state.category,
-            notes: this.state.notes,
-            startDate: this.state.startDate
-          };
-          axios.post('/recipe/update/' + this.props.match.params.id, obj)
-            .then(res => console.log(res.data));
-
-            this.props.history.push('/dashboard');
-        }
-
-
   render() {
     return (
       <div style={{ marginTop: 10 }}>

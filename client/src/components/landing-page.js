@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import About from './about';
 import Menu from './menu';
-import './landing-page.css';
+import '../styles/landing-page.css';
 
 export function LandingPage(props) {
     // If we are logged in redirect straight to the user's dashboard
