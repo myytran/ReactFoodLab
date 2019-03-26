@@ -1,0 +1,12 @@
+import { FETCH_RECIPES } from '../actions/recipe';
+import _ from 'lodash';
+
+export default function(state ={}, action) {
+    switch (action.type) {
+        case FETCH_RECIPES:
+        return _.mapKeys(action.payload.data, 'id'); 
+    default: 
+        return state;
+
+    }
+}

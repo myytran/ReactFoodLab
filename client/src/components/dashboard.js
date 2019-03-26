@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import requiresLogin from './requires-login';
 import {fetchProtectedData} from '../actions/protected-data';
+import DashHeader from './dash-header';
+import RecipeIndex from './recipe-index';
 
 
 
@@ -14,12 +16,17 @@ export class Dashboard extends React.Component {
         return (
             <div className="dashboard">
             <h1>Recipes Index</h1>
+            <DashHeader />
                 <div className="dashboard-username">
                     Username: {this.props.username}
                 </div>
                 <div className="dashboard-name">Name: {this.props.name}</div>
                 <div className="dashboard-protected-data">
                     Protected data: {this.props.protectedData}
+                </div>
+                <br></br>
+                <div className="RecipeIndex">
+              <RecipeIndex />
                 </div>
             </div>
         );
