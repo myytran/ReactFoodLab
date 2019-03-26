@@ -7,6 +7,8 @@ import {refreshAuthToken} from '../actions/auth';
 import LoginForm from './login-form';
 import LandingPage from './landing-page';
 import Dashboard from './dashboard';
+import CreateRecipe from './create-recipe';
+import EditRecipe from './edit-recipe';
 import '../styles/App.css';
 
 export class App extends React.Component {
@@ -45,8 +47,10 @@ export class App extends React.Component {
             <div>
                 <Route exact path="/" component={LandingPage} />
                 <Route exact path="/dashboard" component={Dashboard} />
-              <Route exact path="/register" component={RegistrationPage} />
-              <Route exact path="/login" component={LoginForm} />
+                <Route exact path="/register" component={RegistrationPage} />
+                <Route exact path="/login" component={LoginForm} />
+                <Route exact path="/create" component={CreateRecipe} />
+                <Route exact path="/edit/:id" component={EditRecipe} />
               </div>
           </Router>
 
