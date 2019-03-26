@@ -3,14 +3,13 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const passport = require('passport');
 const { router: usersRouter } = require('./users');
+const recipeRoutes = require('./users/recipe-route');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
-
-mongoose.Promise = global.Promise;
-
 const { PORT, DATABASE_URL } = require('./config');
-
+mongoose.Promise = global.Promise;
 const app = express();
 
 // Logging
@@ -26,12 +25,14 @@ app.use(function (req, res, next) {
   }
   next();
 });
-
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
+app.use('/recipe', recipeRoutes);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 

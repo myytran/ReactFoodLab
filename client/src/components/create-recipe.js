@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import axios from 'axios';
+import axios from 'axios';
 import {Link} from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -11,6 +11,7 @@ export class CreateRecipe extends Component {
     super(props);
     this.onChangeRecipeName = this.onChangeRecipeName.bind(this);
     this.onChangeCategory = this.onChangeCategory.bind(this);
+    this.onChangeIngredients = this.onChangeIngredients.bind(this);
     this.onChangeNotes = this.onChangeNotes.bind(this);
     this.onDateChanged = this.onDateChanged.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -18,8 +19,9 @@ export class CreateRecipe extends Component {
     this.state ={
       recipe_name: ' ',
       category: ' ',
+      ingredients: ' ',
       notes: ' ',
-      startDate: new Date()
+      date: new Date()
     };
 
 }
@@ -33,6 +35,11 @@ onChangeRecipeName(e) {
         category: e.target.value
       })
     }
+    onChangeIngredients(e) {
+      this.setState({
+        ingredients: e.target.value
+      })
+    }
     onChangeNotes(e) {
       this.setState({
         notes: e.target.value
@@ -40,19 +47,28 @@ onChangeRecipeName(e) {
     }
     onDateChanged(date) {
       this.setState({
-        startDate: date
+        date: date
       });
     }
   onSubmit(e) {
     e.preventDefault();
-    const recipe ={
+    const obj = {
       recipe_name: this.state.recipe_name,
       category: this.state.category,
+      ingredients: this.state.ingredients,
       notes: this.state.notes,
-      startDate: this.state.startDate
+      date: this.state.date
+    };
+  this.setState({
+       recipe_name: ' ',
+       category: ' ',
+       ingredients: ' ',
+       notes: ' ',
+        date: new Date()
+     })
     };
    
-      }
+  
 
 render() {
     return (
@@ -74,12 +90,16 @@ render() {
                   <input type="text" className="form-control" value={this.state.category} onChange={this.onChangeCategory} />
                 </div>
                 <div className="create-form-group">
+                  <label>Ingredients: </label>
+                  <input type="text" className="form-control" value={this.state.ingredients} onChange={this.onChangeIngredients} />
+                </div>
+                <div className="create-form-group">
                   <label>Notes: </label>
                   <input type="text" className="form-control" value={this.state.notes} onChange={this.onChangeNotes} />
                 </div>
                 <div className="create-form-group">
                   <label>Select Date: </label>
-                  <DatePicker selected={this.state.startDate} onChange={this.onDateChanged}  />
+                  <DatePicker selected={this.state.date} onChange={this.onDateChanged}  />
                 </div>
                 <div className="create-form-group">
                   <input type="submit" value="Add Recipe" className="submit-recipe-btn"  />
