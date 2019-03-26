@@ -1,6 +1,32 @@
 import React, { Component } from 'react';
+import moment from 'moment';
+
 
 export default class CreateRecipe extends Component {
+    constructor(props) {
+        super(props);
+        this.onChangeRecipeName = this.onChangeRecipeName.bind(this);
+        this.onChangeCategory = this.onChangeCategory.bind(this);
+        this.onChangeIngredients = this.onChangeIngredients.bind(this);
+        this.onChangeNotes = this.onChangeNotes.bind(this);
+        this.onChangeDate = this.onChangeDate.bind(this);
+
+        this.state = {
+            Recipe_Name: ' ',
+            Category: ' ',
+            Ingredients: ' ',
+            Notes: ' ',
+            Date: new Date()
+        }
+    }
+
+
+
+
+
+
+
+
     render() {
         return (
             <div style={{margin: 30}}>
