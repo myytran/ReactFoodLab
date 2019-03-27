@@ -1,12 +1,15 @@
-//import {ADD_ITEM, UPDATE_ITEM, DELETE_ITEM} from '../actions';
+import {ADD_RECIPE, DELETE_RECIPE, FETCH_RECIPE} from '../actions/types';
 
-const recipeReducer = (state = [], action) => {
-    switch(action.type) {
-        case 'ADD_RECIPE': 
-            return state.concat([action.data]);
-                default: 
-                    return state;
+export default function recipeReducer(state = [], action) {
+    switch (action.type) {
+        case ADD_RECIPE: 
+            return [...state, action.payload];
+        case DELETE_RECIPE: 
+            return state.filter(recipe => recipe._id !== action.payload.id);
+        case FETCH_RECIPE: 
+            return action.recipes;
+            
+            default: 
+                return state;
     }
 }
-
-export default recipeReducer;
