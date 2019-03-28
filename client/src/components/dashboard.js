@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import requiresLogin from './requires-login';
-import {fetchProtectedData} from '../actions/protected-data';
+//import {fetchAllRecipes} from '../actions/recipe';
 import DashHeader from './dash-header';
 import RecipeIndex from './recipe-index';
 
@@ -9,7 +9,7 @@ import RecipeIndex from './recipe-index';
 
 export class Dashboard extends React.Component {
     componentDidMount() {
-        this.props.dispatch(fetchProtectedData());
+        //this.props.dispatch(fetchAllRecipes());
     }
 
     render() {
