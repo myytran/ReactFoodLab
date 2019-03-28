@@ -1,34 +1,56 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import {connect} from 'react-redux';
+import {clearAuth} from '../actions/auth';
+import {clearAuthToken} from '../local-storage';
 import requiresLogin from './requires-login';
-//import {fetchAllRecipes} from '../actions/recipe';
-import DashHeader from './dash-header';
+import CreateRecipe from './create-recipe';
+import EditRecipe from './edit-recipe';
 import RecipeIndex from './recipe-index';
 
 
 
 export class Dashboard extends React.Component {
-    componentDidMount() {
-        //this.props.dispatch(fetchAllRecipes());
+    logOut() {
+        this.props.dispatch(clearAuth());
+        clearAuthToken();
     }
 
-    render() {
+
+  render() {
+        // only render the log out button if we are logged in
+        let logOutButton;
+        if (this.props.loggedIn) {
+            logOutButton = (
+                <button onClick={() => this.logOut()}> LOG OUT</button>
+            );
+        }
         return (
-            <div className="dashboard">
-            <h1>Recipes Index</h1>
-            <DashHeader />
-                <div className="dashboard-username">
-                    Username: {this.props.username}
+            <Router>
+            <div className="container">
+              <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                User: {this.props.name}
+                {logOutButton}
+
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul className="navbar-nav mr-auto">
+                    <li className="nav-item">
+                      <Link to={'/create'} className="nav-link">Create</Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link to={'/index'} className="nav-link">Index</Link>
+                    </li>
+                  </ul>
                 </div>
-                <div className="dashboard-name">Name: {this.props.name}</div>
-                <div className="dashboard-protected-data">
-                    Protected data: {this.props.protectedData}
-                </div>
-                <br></br>
-                <div className="RecipeIndex">
-              <RecipeIndex />
-                </div>
+              </nav> <br/>
+              <h2>Welcome to React CRUD Tutorial</h2> <br/>
+              <Switch>
+                <Route exact path='/create' component={ CreateRecipe } />
+                <Route path='/edit/:id' component={ EditRecipe } />
+                <Route path='/index' component={ RecipeIndex } />
+              </Switch>
             </div>
+          </Router>
         );
     }
 }
@@ -38,8 +60,9 @@ const mapStateToProps = state => {
     return {
         username: state.auth.currentUser.username,
         name: `${currentUser.firstName} ${currentUser.lastName}`,
-        protectedData: state.protectedData.data
+        loggedIn: state.auth.currentUser !== null
     };
+    
 };
 
 export default requiresLogin()(connect(mapStateToProps)(Dashboard));

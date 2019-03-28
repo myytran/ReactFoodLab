@@ -6,7 +6,7 @@ import authReducer from './reducers/auth';
 //import recipeReducer from './reducers/recipe-reducer';
 import protectedDataReducer from './reducers/protected-data';
 import {setAuthToken, refreshAuthToken} from './actions/auth';
-import { fetchAllRecipes } from './actions/recipe';
+//import { fetchAllRecipes } from './actions/recipe';
 
 
 const store = createStore(
@@ -19,7 +19,7 @@ const store = createStore(
     applyMiddleware(thunk)
     
 );
-store.dispatch(fetchAllRecipes());
+//store.dispatch(fetchAllRecipes());
 
 // Hydrate the authToken from localStorage if it exist
 const authToken = loadAuthToken();
