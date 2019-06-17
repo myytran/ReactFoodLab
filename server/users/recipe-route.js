@@ -1,4 +1,4 @@
-//route for recipes
+//route for recipe
 
 const express = require('express');
 const recipeRoutes = express.Router();

@@ -4,6 +4,8 @@ import {  Link } from 'react-router-dom';
 import {clearAuth} from '../actions/auth';
 import {clearAuthToken} from '../local-storage';
 import requiresLogin from './requires-login';
+import RecipeList from '../containers/recipeList';
+import { deleteRecipe } from '../actions/index';
 
 
 
@@ -31,8 +33,12 @@ export class Dashboard extends React.Component {
                 <br></br>
                 <Link to={'/create'} className="navbar-brand">Create a recipe</Link>
                 <h2>Dashboard || Index </h2> <br/>
+                <h3>Recipes</h3>
+                <div className="col-md-6">
+                    <RecipeList />
+                </div>
               </nav>
-           
+
               </div>
         );
     }
@@ -43,9 +49,18 @@ const mapStateToProps = state => {
     return {
         username: state.auth.currentUser.username,
         name: `${currentUser.firstName} ${currentUser.lastName}`,
-        loggedIn: state.auth.currentUser !== null
+        loggedIn: state.auth.currentUser !== null 
+    
     };
     
 };
 
-export default requiresLogin()(connect(mapStateToProps)(Dashboard));
+const mapDispatchToProps = dispatch => {
+    return {
+        onDelete: id => {
+            dispatch(deleteRecipe(id));
+        }
+    };
+};
+
+export default requiresLogin()(connect(mapStateToProps,mapDispatchToProps)(Dashboard));

@@ -1,9 +1,11 @@
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import { createRecipe } from '../actions/index';
 
-export default class Create extends Component {
+export class CreateRecipe extends Component {
     constructor(props) {
         super(props);
         this.onChangeRecipeName = this.onChangeRecipeName.bind(this);
@@ -37,6 +39,7 @@ onChangeCategory(e) {
 
 onChangeIngredients(e) {
     this.setState({
+
         ingredients: e.target.value
         });
 }
@@ -54,17 +57,11 @@ onChangestartDate(date) {
 
 }
 
-onSubmit(e) {
+onSubmit = e => {
     e.preventDefault();
-    console.log(`The values are ${this.state.recipe_name}, ${this.state.category}, and ${this.state.startDate}`)
-    this.setState({
-        recipe_name: '',
-        category: '',
-        ingredients: '',
-        notes: '',
-        startDate: new Date()
-    })
-  }
+    this.props.onAddRecipe(this.state);
+    this.handleReset();
+}
     
 //Reset button function
 handleReset = () => {
@@ -116,3 +113,13 @@ handleReset = () => {
         )
     }
 }
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAddRecipe: recipe => {
+            dispatch(createRecipe(recipe));
+        }
+    };
+};
+
+export default connect(null, mapDispatchToProps)(CreateRecipe);

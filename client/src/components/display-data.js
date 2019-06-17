@@ -1,58 +1,22 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import moment from 'moment';
+import React from 'react';
 
 
- class DislayData extends Component {
-  constructor(props) {
-    super(props);
-    this.delete = this.delete.bind(this);
 
-    this.state = {
-      recipe_name: ' ' ,
-      category: ' ',
-      notes: ' ',
-      startDate: new Date()
+const styles = {
+  borderBottom: '2px solid #eee',
+  background: '#fafafa',
+  margin: '.75rem auto',
+  padding: '.6rem 1rem',
+  maxWidth: '500px',
+  borderRadius: '7px'
+}; 
 
-    };
-
-  };
-
-  delete() {
-     axios.delete('/recipe/delete/' + this.props.obj._id)
-     .then(response => {
-       console.log(response)
-     })
-     .catch(err => console.log(err))
-   }
-
-
-render() {
-
+export default ({ recipe: { recipe_name, startDate, _id }, onDelete }) => {
   return (
-    <tr>
-        <td>
-          {this.props.obj.recipe_name}
-        </td>
-          <td>
-            {this.props.obj.category}
-          </td>
-          <td>
-            {this.props.obj.notes}
-          </td>
-              <td>
-                {moment(this.props.obj.startDate).format('LL')}
-              </td>
-                <td>
-                  <Link to={"/edit/" +this.props.obj._id} className="btn btn-primary"> Edit</Link>
-                </td>
-                <td>
-                    <button onClick={this.delete}  className="btn btn-danger">Delete</button>
-              </td>
-          </tr>
-        );
-      }
-    }
-
-export default DislayData;
+    <div style={ styles }>
+      <h2>{ recipe_name }</h2>
+      <h3>{ startDate }</h3>
+      <button className="btn btn-danger" type="button" onClick={() => onDelete(_id)}>Remove</button>
+    </div>
+  );
+};
