@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const { router: usersRouter } = require('./users');
-const recipeRoutes = require('./users/recipe-route');
+//const recipeRoutes = require('./users/recipe-route');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 const { PORT, DATABASE_URL } = require('./config');
 mongoose.Promise = global.Promise;
@@ -32,13 +32,14 @@ passport.use(jwtStrategy);
 
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
-app.use('/recipe', recipeRoutes);
+//app.use('/recipes', recipeRoutes);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
 app.use('*', (req, res) => {
   return res.status(404).json({ message: 'Not Found' });
 });
+
 
 // Referenced by both runServer and closeServer. closeServer
 // assumes runServer has run and set `server` to a server object

@@ -1,11 +1,12 @@
 import {ADD_RECIPE, DELETE_RECIPE, FETCH_RECIPE} from './types';
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:3000/recipe';
+const apiUrl = 'http://localhost:8080/recipes';
 
-export const createRecipe = ({recipe_name, category, ingredients, notes, date}) => {
+
+export const createRecipe = ({ title, body }) => {
     return (dispatch) => {
-        return axios.post(`${apiUrl}/add`, {recipe_name, category, ingredients, notes, date})
+        return axios.post(`${apiUrl}/add`, {title, body })
         .then(response =>{
             dispatch(createRecipeSuccess(response.data))
         })
@@ -14,17 +15,15 @@ export const createRecipe = ({recipe_name, category, ingredients, notes, date}) 
         });
     };
 };
-
+//sync actions
 export const createRecipeSuccess = (data) => {
     return {
         type: ADD_RECIPE,
         payload: {
             _id: data._id,
-            recipe_name: data.recipe_name,
-            category: data.category,
-            ingredients: data.ingredients,
-            notes: data.notes,
-            date: data.date
+            title: data.title,
+            body: data.body
+            
         }
     }
 };
@@ -37,7 +36,7 @@ export const deleteRecipeSuccess = id => {
         }
     }
 }
-
+//async action sends network req to server, then as promise resolves, it fires a sync action with action type and payload
 export const deleteRecipe = id => {
     return (dispatch) => {
         return axios.get(`${apiUrl}/delete/${id}`)

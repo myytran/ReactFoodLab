@@ -14,3 +14,5 @@ export default function recipeReducer(state = [], action) {
     }
     
 }
+
+//Reducers must be pure functions and in this case, these do not relate to backend service.

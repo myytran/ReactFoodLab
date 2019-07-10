@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 //define collection and schema 
 
 let Recipe = new Schema({
-    recipe_name: {
+    title: {
         type: String
     },
     category: {
@@ -22,7 +22,7 @@ let Recipe = new Schema({
         type: Date
     }
 },{ 
-    collection: 'recipe'
+    collection: 'recipes'
 });
 
 module.exports = mongoose.model('Recipe', Recipe);

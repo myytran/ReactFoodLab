@@ -1,9 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
-import About from './about';
-import Menu from './menu';
-import '../styles/landing-page.css';
+import {Link, Redirect} from 'react-router-dom';
+
+import LoginForm from './login-form';
 
 export function LandingPage(props) {
     // If we are logged in redirect straight to the user's dashboard
@@ -13,8 +12,9 @@ export function LandingPage(props) {
 
     return (
         <div className="home">
-            <Menu />
-            <About />
+            <h2>Welcome to Foo App</h2>
+            <LoginForm />
+            <Link to="/register">Register</Link>
         </div>
     );
 }

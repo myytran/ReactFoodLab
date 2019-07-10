@@ -9,7 +9,7 @@ recipeRoutes.route('/add').post(function (req, res) {
     let recipe = new recipe(req.body);
     recipe.save()
       .then(recipe => {
-        res.status(200).json({'recipe': 'recipe added successfully'});
+        res.status(200).json(recipe);
       })
       .catch(err => {
       res.status(400).send("unable to save to database");
@@ -17,7 +17,7 @@ recipeRoutes.route('/add').post(function (req, res) {
   });
   
   // Defined get data(index or listing) route
-  recipeRoutes.route('/dashboard').get(function (req, res) {
+  recipeRoutes.route('/').get(function (req, res) {
       Recipe.find(function(err, recipes){
       if(err){
         console.log(err);
@@ -42,7 +42,7 @@ recipeRoutes.route('/add').post(function (req, res) {
       if (!recipe)
         res.status(404).send("data is not found");
       else {
-          recipe.recipe_name = req.body.recipe_name;
+          recipe.title = req.body.title;
           recipe.category = req.body.category;
           recipe.ingredients = req.body.ingredients;
           recipe.notes = req.body.notes;
@@ -62,7 +62,7 @@ recipeRoutes.route('/add').post(function (req, res) {
   recipeRoutes.route('/delete/:id').get(function (req, res) {
       Recipe.findByIdAndRemove({_id: req.params.id}, function(err, recipe){
           if(err) res.json(err);
-          else res.json('Successfully removed');
+          else res.json(req.params.id);
       });
   });
   
